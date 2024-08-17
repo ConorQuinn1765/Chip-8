@@ -121,44 +121,6 @@ fn waitKey(reg: u8) void {
     wait.waiting = true;
     wait.pressed = false;
     wait.register = reg;
-    //    var base = raylib.GetFrameTime();
-    //    while (true) {
-    //        //const key = raylib.GetKeyPressed();
-    //        var it = keymap.iterator();
-    //        while (it.next()) |entry| {
-    //            //if (entry.value_ptr.* == key) {
-    //            if (raylib.IsKeyDown(entry.value_ptr.*)) {
-    //                while (!raylib.IsKeyUp(entry.value_ptr.*)) {
-    //                    const end = raylib.GetFrameTime();
-    //                    const delta = end - base;
-    //                    if (delta > (1 / 60)) {
-    //                        if (delay_timer > 0) {
-    //                            delay_timer -= 1;
-    //                        }
-    //                        if (sound_timer > 0) {
-    //                            sound_timer -= 1;
-    //                        }
-    //                        base = delta - base;
-    //                    }
-    //                    raylib.PollInputEvents();
-    //                }
-    //                return entry.key_ptr.*;
-    //            }
-    //        }
-    //
-    //        const end = raylib.GetFrameTime();
-    //        const delta = end - base;
-    //        if (delta > (1 / 60)) {
-    //            if (delay_timer > 0) {
-    //                delay_timer -= 1;
-    //            }
-    //            if (sound_timer > 0) {
-    //                sound_timer -= 1;
-    //            }
-    //            base = delta - base;
-    //        }
-    //        raylib.PollInputEvents();
-    //    }
 }
 
 fn reg_dump(x: u8) void {
@@ -265,7 +227,6 @@ fn parseCmdF(x: u8, nn: u8) void {
             regs[x] = delay_timer;
         },
         0x0a => {
-            // regs[x] = waitKey();
             waitKey(x);
         },
         0x15 => {
