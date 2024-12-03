@@ -1,5 +1,6 @@
 const std = @import("std");
 const raylib = @cImport(@cInclude("raylib.h"));
+const time = std.time;
 
 const Rng = std.Random.DefaultPrng;
 
@@ -394,16 +395,21 @@ pub fn main() !void {
     raylib.InitWindow(640, 320, "Chip 8 Emulator");
     raylib.SetTargetFPS(500);
 
+    var startTime = try time.Instant.now();
     var done = false;
+
     while (!raylib.WindowShouldClose()) {
         raylib.BeginDrawing();
         raylib.ClearBackground(raylib.BLACK);
 
-        if (raylib.GetFrameTime() > (1 / 60)) {
+        const endTime = try time.Instant.now();
+        if ((endTime.since(startTime)) > (1 / 60)) {
             if (delay_timer > 0)
                 delay_timer -= 1;
             if (sound_timer > 0)
                 sound_timer -= 1;
+
+            startTime = endTime;
         }
 
         if (wait.waiting) {
